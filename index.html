@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quit Tobacco Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ================== CSS ================== -->
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-main: #020617;
+      --bg-card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.2);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --success: #22c55e;
+      --border-soft: rgba(148,163,184,0.4);
+      --shadow-soft: 0 20px 40px rgba(15,23,42,0.6);
+      --radius-lg: 18px;
+    }
+
+    body.theme-ocean {
+      --bg-main: #020617;
+      --bg-card: radial-gradient(circle at top, #1e293b 0, #020617 50%, #000 100%);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.2);
+    }
+
+    body.theme-emerald {
+      --bg-main: #022c22;
+      --bg-card: radial-gradient(circle at top, #064e3b 0, #022c22 50%, #000 100%);
+      --accent: #22c55e;
+      --accent-soft: rgba(34,197,94,0.18);
+    }
+
+    body.theme-sunset {
+      --bg-main: #111827;
+      --bg-card: radial-gradient(circle at top, #f97316 0, #111827 60%, #020617 100%);
+      --accent: #fb923c;
+      --accent-soft: rgba(251,146,60,0.2);
+    }
+
+    body.theme-dark {
+      --bg-main: #000000;
+      --bg-card: radial-gradient(circle at top, #0f172a 0, #020617 40%, #000 100%);
+      --accent: #6366f1;
+      --accent-soft: rgba(99,102,241,0.22);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, var(--bg-main) 40%, #000000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 18px 10px 28px;
+    }
+
+    /* ========== START SCREEN ========== */
+    .start-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+    }
+
+    .start-card {
+      width: 100%;
+      max-width: 420px;
+      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.6);
+      box-shadow: 0 30px 70px rgba(15,23,42,0.95);
+      padding: 18px 16px 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 60%),
+        radial-gradient(circle at bottom, rgba(34,197,94,0.18), transparent 70%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .start-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .start-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, #22c55e 0, #15803d 40%, transparent 70%);
+      box-shadow: 0 0 12px rgba(34,197,94,1);
+    }
+
+    .start-title {
+      position: relative;
+      font-size: 1.4rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .start-title span.highlight {
+      color: var(--accent);
+    }
+
+    .start-subtitle {
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .start-quote {
+      position: relative;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .start-quote strong {
+      color: #bbf7d0;
+      font-weight: 600;
+    }
+
+    .start-button {
+      position: relative;
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.8);
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background:
+        radial-gradient(circle at top, rgba(22,163,74,0.26), transparent 65%),
+        radial-gradient(circle at bottom, rgba(15,23,42,0.98), rgba(15,23,42,1));
+      color: #bbf7d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 18px 34px rgba(15,23,42,0.95);
+      outline: none;
+      transition: all 0.14s ease-out;
+    }
+
+    .start-button:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 12px 24px rgba(15,23,42,0.95);
+    }
+
+    .start-button span.icon {
+      font-size: 1.05rem;
+    }
+
+    .start-footer {
+      position: relative;
+      margin-top: 10px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .fade-out {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      transition: all 0.22s ease-out;
+      pointer-events: none;
+    }
+
+    /* ========== MAIN APP SHELL ========== */
+    .app-shell {
+      width: 100%;
+      max-width: 480px;
+      background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(2,6,23,0.96));
+      border-radius: 22px;
+      padding: 16px 14px 20px;
+      box-shadow: 0 25px 60px rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+      display: none; /* start me hidden */
+    }
+
+    .app-shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 60%),
+        radial-gradient(circle at top right, rgba(59,130,246,0.12), transparent 60%),
+        radial-gradient(circle at bottom, rgba(45,212,191,0.12), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .app-shell.app-visible {
+      display: block;
+      animation: fadeInApp 0.24s ease-out;
+    }
+
+    @keyframes fadeInApp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding: 4px 2px 8px;
+    }
+
+    .app-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .app-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+    }
+
+    .app-title-pill {
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, #22c55e 0, #15803d 35%, transparent 70%);
+      box-shadow: 0 0 12px rgba(34,197,94,0.9);
+    }
+
+    .app-subtitle {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    /* Profile */
+    .profile-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 2px solid rgba(148,163,184,0.8);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.8), rgba(15,23,42,0.4));
+      box-shadow: 0 0 0 2px rgba(15,23,42,0.9), 0 0 22px rgba(15,23,42,0.7);
+      position: relative;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-fallback {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .avatar-status {
+      position: absolute;
+      right: 1px;
+      bottom: 2px;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 1px solid #020617;
+      background: radial-gradient(circle at center, #22c55e 0, #15803d 40%, transparent 70%);
+      box-shadow: 0 0 8px rgba(34,197,94,0.9);
+    }
+
+    .profile-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .profile-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .profile-caption {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    /* Summary Card */
+    .summary-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.45);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 12px 10px;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .summary-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at top left, var(--accent-soft), transparent 60%),
+        radial-gradient(circle at top right, rgba(129,140,248,0.16), transparent 60%);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .summary-main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .days-chip {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .days-big {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .days-big span.unit {
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .summary-line {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .summary-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .money-chip {
+      font-size: 0.78rem;
+      padding: 7px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(34,197,94,0.5);
+      background: radial-gradient(circle at top, rgba(34,197,94,0.18), transparent 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      min-width: 110px;
+    }
+
+    .money-main {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--success);
+    }
+
+    .money-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .summary-footer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .summary-tagline {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .summary-tagline strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .mini-pill {
+      font-size: 0.68rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--text-muted);
+    }
+
+    /* Tabs */
+    .tab-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      margin-top: 4px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-row::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .tab-row::-webkit-scrollbar-thumb {
+      background: rgba(148,163,184,0.5);
+      border-radius: 999px;
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      min-width: 90px;
+      font-size: 0.8rem;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      outline: none;
+      white-space: nowrap;
+    }
+
+    .tab-btn span.icon {
+      font-size: 0.88rem;
+    }
+
+    .tab-btn.active {
+      border-color: var(--accent);
+      background: radial-gradient(circle at top, var(--accent-soft), transparent 60%);
+      color: var(--text-main);
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.9);
+    }
+
+    /* Content */
+    .screen {
+      display: none;
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-card {
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(15,23,42,0.92));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 10px 10px 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .section-caption {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .bullet-list {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-left: 14px;
+      margin-bottom: 6px;
+    }
+
+    .bullet-list li {
+      margin-bottom: 3px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .stat-card {
+      background: radial-gradient(circle at top, rgba(15,23,42,0.8), rgba(15,23,42,0.98));
+      border-radius: 14px;
+      padding: 8px 9px;
+      border: 1px solid rgba(51,65,85,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 0.98rem;
+      font-weight: 600;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .stat-trend {
+      font-size: 0.7rem;
+      color: var(--success);
+      margin-top: 2px;
+    }
+
+    .urge-button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 9px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background:
+        radial-gradient(circle at top, rgba(22,163,74,0.20), transparent 70%),
+        radial-gradient(circle at bottom, rgba(15,23,42,0.96), rgba(15,23,42,1));
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #bbf7d0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 16px 30px rgba(15,23,42,0.9);
+      outline: none;
+      transition: all 0.12s ease-out;
+    }
+
+    .urge-button:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 10px 20px rgba(15,23,42,0.9);
+    }
+
+    .urge-button .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, #22c55e 0, #15803d 40%, transparent 75%);
+      box-shadow: 0 0 20px rgba(34,197,94,1);
+    }
+
+    /* Forms */
+    .field-group {
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .field-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(51,65,85,0.9);
+      background: rgba(15,23,42,0.95);
+      padding: 7px 9px;
+      font-size: 0.84rem;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.95);
+    }
+
+    .field-textarea {
+      min-height: 44px;
+      resize: vertical;
+    }
+
+    .tiny-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      flex: 1;
+      border-radius: 999px;
+      padding: 7px 8px;
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 0.8rem;
+      cursor: pointer;
+      outline: none;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      color: var(--text-main);
+    }
+
+    .btn.primary {
+      border-color: var(--accent);
+      background: radial-gradient(circle at top, var(--accent-soft), rgba(15,23,42,0.97));
+    }
+
+    .log-list {
+      margin-top: 6px;
+      max-height: 170px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .log-item {
+      border-radius: 12px;
+      border: 1px solid rgba(51,65,85,0.95);
+      padding: 7px 9px;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: rgba(15,23,42,0.98);
+      margin-bottom: 6px;
+    }
+
+    .log-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+    }
+
+    .log-text {
+      font-size: 0.8rem;
+    }
+
+    /* Motivation */
+    .motivation-list {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .motivation-item {
+      border-radius: 12px;
+      border: 1px solid rgba(55,65,81,0.95);
+      padding: 7px 9px;
+      font-size: 0.8rem;
+      background: rgba(15,23,42,0.96);
+      display: flex;
+      gap: 7px;
+    }
+
+    .motivation-badge {
+      font-size: 0.72rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* Mind screen */
+    .affirmation-box {
+      border-radius: 12px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      padding: 7px 9px;
+      font-size: 0.82rem;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .mind-tagline {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .gratitude-list-item {
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.95);
+      padding: 6px 7px;
+      font-size: 0.78rem;
+      background: rgba(15,23,42,0.97);
+      margin-bottom: 4px;
+    }
+
+    .gratitude-date {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    /* Settings */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .settings-section {
+      border-radius: 14px;
+      border: 1px solid rgba(51,65,85,0.96);
+      padding: 7px 9px;
+      background: rgba(15,23,42,0.98);
+    }
+
+    .settings-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .settings-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .theme-preview {
+      margin-top: 4px;
+      border-radius: 10px;
+      border: 1px dashed rgba(148,163,184,0.6);
+      padding: 4px 6px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .settings-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .profile-file-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    .profile-file-label span.icon {
+      font-size: 0.9rem;
+    }
+
+    #profileImageInput {
+      display: none;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 4px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(51,65,85,0.9);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .footer-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 360px) {
+      .app-shell {
+        padding: 12px 10px 16px;
+      }
+      .summary-card {
+        padding: 10px 9px;
+      }
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="theme-ocean">
+  <!-- ========== START SCREEN OVERLAY ========== -->
+  <div class="start-screen" id="startScreen">
+    <div class="start-card">
+      <div class="start-badge">
+        <span class="start-badge-dot"></span>
+        I AM FREE FROM NICOTINE "DISEASE"
+      </div>
+
+      <h1 class="start-title">
+        I am free from<br />
+        <span class="highlight">nicotine "disease"</span>
+      </h1>
+
+      <p class="start-subtitle">
+        Aaj se nahi, abhi se – aapka dimaag aur body dono tobacco se azaad ho sakte hain.
+      </p>
+
+      <p class="start-quote">
+        <strong>Bas aaj</strong> ek decision: phir kabhi nicotine ko apna malik nahi banne dena.
+      </p>
+
+      <button class="start-button" id="startButton">
+        <span>Please enter to enjoy new life</span>
+        <span class="icon">➡️</span>
+      </button>
+
+      <div class="start-footer">
+        App ke andar aapke stats, cravings log, awareness, mind tools aur settings sab ready hai.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN APP ========== -->
+  <div class="app-shell" id="appShell">
+    <!-- ============== HEADER ============== -->
+    <header class="app-header">
+      <div class="app-title-block">
+        <div class="app-title">
+          🛡 Quit Journey
+        </div>
+        <div class="app-title-pill">
+          <span class="pill-dot"></span>
+          ONE DAY • ONE DECISION
+        </div>
+        <div class="app-subtitle">
+          Har urge par jeet, har din naya record.
+        </div>
+      </div>
+
+      <div class="profile-wrap">
+        <div class="avatar" id="avatarCircle">
+          <img id="profileImage" alt="" style="display:none;" />
+          <span class="avatar-fallback" id="avatarInitials">QJ</span>
+          <div class="avatar-status"></div>
+        </div>
+        <div class="profile-text">
+          <div class="profile-name" id="profileNameDisplay">Friend</div>
+          <div class="profile-caption" id="profileCaption">
+            Aaj bhi tobacco se strong 💪
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ SUMMARY ============ -->
+    <section class="summary-card">
+      <div class="summary-main">
+        <div>
+          <div class="days-chip">
+            <span>TOBACCO FREE DAYS</span>
+          </div>
+          <div class="days-big">
+            <span id="daysCounter">0</span>
+            <span class="unit">din</span>
+          </div>
+          <div class="summary-line">
+            <span class="summary-highlight" id="quitDateLabel">Quit date set nahi hai</span>
+          </div>
+        </div>
+
+        <div class="money-chip">
+          <div class="money-main">
+            <span id="moneySaved">0</span> <span id="currencyLabel">₹</span>
+          </div>
+          <div class="money-sub">
+            itna paisa bach chuka hai 💰
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-footer">
+        <div class="summary-tagline">
+          <strong id="healthGain">0 ghante</strong> sehat wapas &amp; counting.
+        </div>
+        <div class="mini-pill" id="cravingCountPill">
+          0 urges logged
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== TABS ============== -->
+    <nav class="tab-row">
+      <button class="tab-btn active" data-screen="home">
+        <span class="icon">🏠</span><span>Home</span>
+      </button>
+      <button class="tab-btn" data-screen="cravings">
+        <span class="icon">📓</span><span>Cravings</span>
+      </button>
+      <button class="tab-btn" data-screen="motivation">
+        <span class="icon">✨</span><span>Motivation</span>
+      </button>
+      <button class="tab-btn" data-screen="awareness">
+        <span class="icon">🧪</span><span>Awareness</span>
+      </button>
+      <button class="tab-btn" data-screen="mind">
+        <span class="icon">🧠</span><span>Mind</span>
+      </button>
+      <button class="tab-btn" data-screen="settings">
+        <span class="icon">⚙️</span><span>Settings</span>
+      </button>
+    </nav>
+
+    <!-- ============== SCREEN: HOME ============== -->
+    <main id="screen-home" class="screen active">
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Aaj ka Focus</div>
+            <div class="section-caption">
+              Bas aaj tobacco nahi. Kal kal dekhenge.
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-label">Last urge par jeet</div>
+            <div class="stat-value">
+              <span id="lastUrgeAgo">—</span>
+            </div>
+            <div class="stat-trend" id="streakText">No urges logged yet.</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Current clean streak</div>
+            <div class="stat-value">
+              <span id="streakDays">0</span>
+              <span style="font-size:0.74rem;color:var(--text-muted)">days</span>
+            </div>
+            <div class="stat-trend">
+              Keep going, bas aaj.
+            </div>
+          </div>
+        </div>
+
+        <button class="urge-button" id="urgeButton">
+          <span class="pulse-dot"></span>
+          <span>Urge aya, par maine control kiya ✅</span>
+        </button>
+        <p class="tiny-note" style="margin-top:4px;">
+          Jab bhi urge aaye aur aap tobacco <strong>NA lo</strong>, ye button dabao. Ye aapka winning counter hai.
+        </p>
+      </section>
+    </main>
+
+    <!-- ============== SCREEN: CRAVINGS ============== -->
+    <main id="screen-cravings" class="screen">
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Craving log</div>
+            <div class="section-caption">
+              Trigger samjho = control aur strong.
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Trigger (jaise: chai, stress, bike, dost):</label>
+          <input id="triggerInput" class="field-input" placeholder="Trigger likhiye..." />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Mood:</label>
+          <select id="moodSelect" class="field-select">
+            <option value="OK">Shant tha</option>
+            <option value="Stress">Stress me tha</option>
+            <option value="Angry">Gussa tha</option>
+            <option value="Sad">Udās tha</option>
+            <option value="Happy">Khush tha</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Short note (optional):</label>
+          <textarea id="noteInput" class="field-textarea" placeholder="Kya hua, kaise handle kiya..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="saveCravingBtn">Save log</button>
+          <button class="btn" id="clearCravingsBtn">Clear all</button>
+        </div>
+
+        <p class="tiny-note">
+          Sirf 7–10 din log karoge, to tumhara brain khud pattern pakad lega – kab sabse jyada dikkat hoti hai.
+        </p>
+
+        <div class="log-list" id="cravingList"></div>
+      </section>
+    </main>
+
+    <!-- ============== SCREEN: MOTIVATION ============== -->
+    <main id="screen-motivation" class="screen">
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Why quit?</div>
+            <div class="section-caption">
+              Jab bhi man hile, yeh list padho.
+            </div>
+          </div>
+        </div>
+
+        <div class="motivation-list">
+          <div class="motivation-item">
+            <div class="motivation-badge">Health</div>
+            <div>
+              Agle 24 ghante me hi BP aur heart par kaafi load kam ho jata hai. Har din tobacco se door = heart attack ka risk kam.
+            </div>
+          </div>
+          <div class="motivation-item">
+            <div class="motivation-badge">Money</div>
+            <div>
+              Jo paisa aaj bach raha hai, wahi future me aapke family ke kaam aayega, hospital ke bill ke nahi.
+            </div>
+          </div>
+          <div class="motivation-item">
+            <div class="motivation-badge">Family</div>
+            <div>
+              Aapka ek decision – baccho ki sehat, partner ki tension, sab par direct effect. Wo khush chehra imagine karo jab aap permanent quit ho jaoge.
+            </div>
+          </div>
+          <div class="motivation-item">
+            <div class="motivation-badge">Self-respect</div>
+            <div>
+              Har baar jab aap urge ko hara dete ho, aapka self-respect, confidence, willpower teenon grow karte hain. Ye sirf tobacco nahi, life ke har area me help karega.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============== SCREEN: AWARENESS ============== -->
+    <main id="screen-awareness" class="screen">
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Tobacco ke andar kya hota hai?</div>
+            <div class="section-caption">
+              Ye "maza" nahi, chemicals ka mix hai.
+            </div>
+          </div>
+        </div>
+
+        <div class="section-subtitle">Chemicals (simplified):</div>
+        <ul class="bullet-list">
+          <li><strong>Nicotine:</strong> brain ko hijack karke addiction banata hai, BP &amp; heart rate badhata hai.</li>
+          <li><strong>Areca nut (supari):</strong> mouth ke andar fibrosis, ulcers aur cancer ka risk.</li>
+          <li><strong>TSNAs:</strong> (tobacco-specific nitrosamines) – direct cancer causing compounds.</li>
+          <li><strong>Tar:</strong> lungs aur airways me chipak kar damage karta hai.</li>
+          <li><strong>Cadmium:</strong> kidney damage, bones kamzor.</li>
+          <li><strong>Lead:</strong> nerves &amp; brain function disturb, BP par effect.</li>
+          <li><strong>Carbon monoxide:</strong> blood me oxygen kam, thakan aur heart load zyada.</li>
+        </ul>
+
+        <p class="tiny-note">
+          Jab bhi "thoda sa hi to hai" socho, yaad rakho ye thoda-thoda poison hi jama ho raha hai.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Body me kya hota hai?</div>
+            <div class="section-caption">
+              Har packet / pouch = multiple organs ko damage.
+            </div>
+          </div>
+        </div>
+
+        <ul class="bullet-list">
+          <li><strong>Muh &amp; gums:</strong> zakhm, infection, bad smell, white / red patches, oral cancer risk.</li>
+          <li><strong>Brain:</strong> anxiety, irritability, focus kam – nicotine ke bina brain disturb lagta hai.</li>
+          <li><strong>Heart &amp; BP:</strong> BP high, heart attack &amp; stroke ka risk jump.</li>
+          <li><strong>Lungs:</strong> oxygen kam, breath short, stamina kam.</li>
+          <li><strong>Stomach &amp; pancreas:</strong> acidity, ulcers, pancreatic cancer risk.</li>
+          <li><strong>Fertility:</strong> sperm quality / count me problem, pregnancy risks.</li>
+          <li><strong>Skin &amp; aging:</strong> jald hi budhape jaisa look, dull &amp; dry skin.</li>
+          <li><strong>Stress:</strong> asli stress badhata hai, sirf temporary relief ka illusion deta hai.</li>
+        </ul>
+
+        <p class="tiny-note">
+          Good news: jitna jaldi quit karoge, utna zyada damage reverse ho sakta hai. Aaj se start = best investment.
+        </p>
+      </section>
+    </main>
+
+    <!-- ============== SCREEN: MIND ============== -->
+    <main id="screen-mind" class="screen">
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Affirmations</div>
+            <div class="section-caption">
+              Dimaag ko naya message baar-baar sunana hota hai.
+            </div>
+          </div>
+        </div>
+
+        <div class="affirmation-box" id="affirmationText">
+          Aaj se main nicotine ka gulaam nahi, apne decisions ka malik hoon.
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="nextAffirmationBtn">Next affirmation 🔄</button>
+        </div>
+
+        <p class="mind-tagline">
+          Roz subah / urge ke time 3–5 baar dil se bolo. Dimaag ka program dhire-dhire change hota hai.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Visualization</div>
+            <div class="section-caption">
+              20 second ke liye future ka clean version imagine karo.
+            </div>
+          </div>
+        </div>
+
+        <ul class="bullet-list">
+          <li>Apne aap ko 1 saal baad imagine karo – bilkul nicotine-free.</li>
+          <li>Saans bilkul clean, body halki, BP &amp; heart better.</li>
+          <li>Family ke chehre pe proud aur sukoon.</li>
+          <li>Extra paisa health, family, travel ya hobbies par kharch kar rahe ho.</li>
+        </ul>
+
+        <p class="tiny-note">
+          Aankh band karo, 3 deep breaths lo, phir ye scene 20 second ke liye clearly imagine karo – jaise abhi ho raha hai.
+        </p>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Gratitude</div>
+            <div class="section-caption">
+              Dhyan “kya kho rahe ho” se “kya paa rahe ho” par shift karta hai.
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Aaj main kis cheez ke liye thankful hoon?</label>
+          <textarea id="gratitudeInput" class="field-textarea" placeholder="Jaise: mera healthy body, family ka support, aaj ka clean din..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="saveGratitudeBtn">Save gratitude</button>
+        </div>
+
+        <p class="tiny-note">
+          Roz ek chhoti gratitude likhoge, to mind ka focus positive cheezon par shift hoga – addiction ka grip kam hota hai.
+        </p>
+
+        <div class="log-list" id="gratitudeList"></div>
+      </section>
+    </main>
+
+    <!-- ============== SCREEN: SETTINGS ============== -->
+    <main id="screen-settings" class="screen">
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Settings</div>
+            <div class="section-caption">
+              App ko apne hisaab se set karo.
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Profile -->
+          <div class="settings-section">
+            <div class="settings-title">Profile</div>
+
+            <div class="settings-row">
+              <label class="field-label">Name (app me dikhane ke liye):</label>
+              <input id="profileNameInput" class="field-input" placeholder="Apna naam..." />
+            </div>
+
+            <div class="settings-row">
+              <label class="field-label">Profile photo:</label>
+              <label class="profile-file-label" for="profileImageInput">
+                <span class="icon">📷</span>
+                <span>Photo choose / change</span>
+              </label>
+              <input type="file" id="profileImageInput" accept="image/*" />
+              <p class="settings-note">
+                Sirf aapke device me store hoga, online upload nahi hota.
+              </p>
+            </div>
+
+            <button class="btn primary" id="saveProfileBtn">Save profile</button>
+          </div>
+
+          <!-- Theme -->
+          <div class="settings-section">
+            <div class="settings-title">Theme &amp; look</div>
+
+            <div class="settings-row">
+              <label class="field-label">Theme color:</label>
+              <select id="themeSelect" class="field-select">
+                <option value="theme-ocean">Ocean (blue)</option>
+                <option value="theme-emerald">Emerald (green)</option>
+                <option value="theme-sunset">Sunset (orange)</option>
+                <option value="theme-dark">Deep dark</option>
+              </select>
+            </div>
+
+            <div class="theme-preview" id="themePreview">
+              Theme change karte hi turant effect dekhega.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <!-- Quit plan / money -->
+        <div class="section-header">
+          <div>
+            <div class="section-title">Quit plan</div>
+            <div class="section-caption">
+              Thoda data doge, to stats powerful ban jayenge.
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Quit date (jis din se aapne decide kiya ki tobacco khatam):</label>
+          <input id="quitDateInput" type="date" class="field-input" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Daily kharcha (approx):</label>
+          <div style="display:flex;gap:6px;">
+            <select id="currencySelect" class="field-select" style="flex:0.55;">
+              <option value="₹">₹ INR</option>
+              <option value="$">$</option>
+              <option value="€">€</option>
+            </select>
+            <input id="dailySpendInput" type="number" min="0" class="field-input" style="flex:1;" placeholder="Jaise: 80" />
+          </div>
+          <p class="tiny-note">
+            Isse app calculate karega ki aap kitna paisa bacha pa rahe ho.
+          </p>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary" id="savePlanBtn">Save plan</button>
+          <button class="btn" id="resetAllBtn">Reset all data</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============== FOOTER ============== -->
+    <footer class="footer">
+      <div>
+        Bas <strong>aaj</strong> tobacco nahi. Itna kaafi hai.
+      </div>
+      <div class="footer-pill">
+        <span>🧠</span>
+        <span>Mann ka rishta todna hai, nahi ki willpower se ladna.</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ================== JAVASCRIPT ================== -->
+  <script>
+    const storageKeys = {
+      profileName: "qt_profileName",
+      profileImage: "qt_profileImage",
+      theme: "qt_theme",
+      quitDate: "qt_quitDate",
+      currency: "qt_currency",
+      dailySpend: "qt_dailySpend",
+      cravings: "qt_cravings",
+      gratitude: "qt_gratitude"
+    };
+
+    const startScreen = document.getElementById("startScreen");
+    const startButton = document.getElementById("startButton");
+    const appShell = document.getElementById("appShell");
+
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const screens = {
+      home: document.getElementById("screen-home"),
+      cravings: document.getElementById("screen-cravings"),
+      motivation: document.getElementById("screen-motivation"),
+      awareness: document.getElementById("screen-awareness"),
+      mind: document.getElementById("screen-mind"),
+      settings: document.getElementById("screen-settings")
+    };
+
+    const profileNameDisplay = document.getElementById("profileNameDisplay");
+    const profileCaption = document.getElementById("profileCaption");
+    const avatarInitials = document.getElementById("avatarInitials");
+    const profileImageEl = document.getElementById("profileImage");
+
+    const daysCounter = document.getElementById("daysCounter");
+    const moneySavedEl = document.getElementById("moneySaved");
+    const currencyLabel = document.getElementById("currencyLabel");
+    const quitDateLabel = document.getElementById("quitDateLabel");
+    const healthGain = document.getElementById("healthGain");
+    const cravingCountPill = document.getElementById("cravingCountPill");
+
+    const lastUrgeAgo = document.getElementById("lastUrgeAgo");
+    const streakText = document.getElementById("streakText");
+    const streakDays = document.getElementById("streakDays");
+
+    const urgeButton = document.getElementById("urgeButton");
+
+    const triggerInput = document.getElementById("triggerInput");
+    const moodSelect = document.getElementById("moodSelect");
+    const noteInput = document.getElementById("noteInput");
+    const saveCravingBtn = document.getElementById("saveCravingBtn");
+    const clearCravingsBtn = document.getElementById("clearCravingsBtn");
+    const cravingList = document.getElementById("cravingList");
+
+    const profileNameInput = document.getElementById("profileNameInput");
+    const profileImageInput = document.getElementById("profileImageInput");
+    const saveProfileBtn = document.getElementById("saveProfileBtn");
+
+    const themeSelect = document.getElementById("themeSelect");
+    const themePreview = document.getElementById("themePreview");
+
+    const quitDateInput = document.getElementById("quitDateInput");
+    const currencySelect = document.getElementById("currencySelect");
+    const dailySpendInput = document.getElementById("dailySpendInput");
+    const savePlanBtn = document.getElementById("savePlanBtn");
+    const resetAllBtn = document.getElementById("resetAllBtn");
+
+    // Mind screen elements
+    const affirmationText = document.getElementById("affirmationText");
+    const nextAffirmationBtn = document.getElementById("nextAffirmationBtn");
+    const gratitudeInput = document.getElementById("gratitudeInput");
+    const saveGratitudeBtn = document.getElementById("saveGratitudeBtn");
+    const gratitudeList = document.getElementById("gratitudeList");
+
+    // ---------- Start screen logic ----------
+    if (startButton) {
+      startButton.addEventListener("click", () => {
+        if (startScreen) {
+          startScreen.classList.add("fade-out");
+          setTimeout(() => {
+            startScreen.style.display = "none";
+          }, 220);
+        }
+        if (appShell) {
+          appShell.classList.add("app-visible");
+        }
+      });
+    }
+
+    // ------------- Utility functions -------------
+    function save(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (e) {
+        console.warn("Storage error:", e);
+      }
+    }
+
+    function load(key, defaultValue = null) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw === null || raw === undefined) return defaultValue;
+        return JSON.parse(raw);
+      } catch {
+        return defaultValue;
+      }
+    }
+
+    function formatShortDate(dateStr) {
+      if (!dateStr) return "";
+      const d = new Date(dateStr + "T00:00:00");
+      if (isNaN(d)) return dateStr;
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const year = d.getFullYear();
+      return `${day}-${month}-${year}`;
+    }
+
+    function daysBetween(fromDateStr, toDate) {
+      if (!fromDateStr) return 0;
+      const start = new Date(fromDateStr + "T00:00:00");
+      if (isNaN(start)) return 0;
+      const diffMs = toDate - start;
+      const diff = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      return diff < 0 ? 0 : diff;
+    }
+
+    function timeAgoString(timestamp) {
+      if (!timestamp) return "—";
+      const now = Date.now();
+      const diffMs = now - timestamp;
+      if (diffMs < 0) return "—";
+      const minutes = Math.floor(diffMs / (1000 * 60));
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+
+      if (minutes < 1) return "abhi abhi";
+      if (minutes < 60) return `${minutes} min pehle`;
+      if (hours < 24) return `${hours} ghante pehle`;
+      return `${days} din pehle`;
+    }
+
+    // ------------- Tabs -------------
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-screen");
+
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        Object.entries(screens).forEach(([name, el]) => {
+          el.classList.toggle("active", name === target);
+        });
+      });
+    });
+
+    // ------------- Profile -------------
+    function updateProfileUI() {
+      const name = load(storageKeys.profileName, "Friend");
+      profileNameDisplay.textContent = name || "Friend";
+      profileNameInput.value = name === "Friend" ? "" : name;
+
+      const initials = (name || "Friend")
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0].toUpperCase())
+        .join("");
+      avatarInitials.textContent = initials || "QJ";
+
+      const imageData = load(storageKeys.profileImage, null);
+      if (imageData) {
+        profileImageEl.src = imageData;
+        profileImageEl.style.display = "block";
+        avatarInitials.style.display = "none";
+      } else {
+        profileImageEl.style.display = "none";
+        avatarInitials.style.display = "block";
+      }
+
+      profileCaption.textContent = "Aaj bhi tobacco se strong 💪";
+    }
+
+    saveProfileBtn.addEventListener("click", () => {
+      const name = profileNameInput.value.trim();
+      if (name) {
+        save(storageKeys.profileName, name);
+      } else {
+        save(storageKeys.profileName, "Friend");
+      }
+      updateProfileUI();
+      alert("Profile saved ✅");
+    });
+
+    profileImageInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith("image/")) {
+        alert("Please image file select kare.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const dataUrl = ev.target.result;
+        save(storageKeys.profileImage, dataUrl);
+        updateProfileUI();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // ------------- Theme -------------
+    function applyTheme(themeClass) {
+      const body = document.body;
+      body.classList.remove("theme-ocean", "theme-emerald", "theme-sunset", "theme-dark");
+      body.classList.add(themeClass);
+      save(storageKeys.theme, themeClass);
+
+      let text = "Theme change karte hi turant effect dekhega.";
+      if (themeClass === "theme-ocean") text = "Ocean: thandi, calm blue theme.";
+      if (themeClass === "theme-emerald") text = "Emerald: fresh green, health focus.";
+      if (themeClass === "theme-sunset") text = "Sunset: warm orange, energy feel.";
+      if (themeClass === "theme-dark") text = "Deep dark: high focus, distraction kam.";
+
+      themePreview.textContent = text;
+    }
+
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value);
+    });
+
+    // ------------- Plan & Stats -------------
+    function updateStatsUI() {
+      const quitDate = load(storageKeys.quitDate, null);
+      const dailySpend = Number(load(storageKeys.dailySpend, 0)) || 0;
+      const currency = load(storageKeys.currency, "₹");
+      const cravings = load(storageKeys.cravings, []);
+      const now = new Date();
+
+      let days = quitDate ? daysBetween(quitDate, now) : 0;
+      daysCounter.textContent = days;
+      streakDays.textContent = days;
+      currencyLabel.textContent = currency;
+
+      if (quitDate) {
+        quitDateLabel.textContent = `Quit: ${formatShortDate(quitDate)}`;
+      } else {
+        quitDateLabel.textContent = "Quit date set nahi hai";
+      }
+
+      const moneySaved = Math.round(days * dailySpend);
+      moneySavedEl.textContent = moneySaved.toString();
+
+      const healthHours = days * 4;
+      healthGain.textContent = `${healthHours} ghante`;
+
+      cravingCountPill.textContent = `${cravings.length} urge(s) logged`;
+
+      if (cravings.length === 0) {
+        lastUrgeAgo.textContent = "No urges yet";
+        streakText.textContent = "Jitni kam urges, utna easy journey.";
+      } else {
+        const last = cravings[cravings.length - 1];
+        lastUrgeAgo.textContent = timeAgoString(last.timestamp);
+
+        const lastDate = new Date(last.timestamp);
+        const lastDayDiff = daysBetween(
+          lastDate.toISOString().slice(0, 10),
+          now
+        );
+        if (lastDayDiff === 0) {
+          streakText.textContent = "Aaj bhi urge handle kiya, proud of you.";
+        } else {
+          streakText.textContent = `${lastDayDiff} din se koi urge log nahi hua 🔥`;
+        }
+      }
+    }
+
+    savePlanBtn.addEventListener("click", () => {
+      const qDate = quitDateInput.value || null;
+      const currency = currencySelect.value || "₹";
+      const daily = Number(dailySpendInput.value || "0") || 0;
+
+      if (!qDate) {
+        alert("Quit date set karna zaroori hai.");
+        return;
+      }
+      if (daily <= 0) {
+        alert("Daily kharcha approx likhiye (0 se jyada).");
+        return;
+      }
+
+      save(storageKeys.quitDate, qDate);
+      save(storageKeys.currency, currency);
+      save(storageKeys.dailySpend, daily);
+
+      updateStatsUI();
+      alert("Quit plan saved ✅");
+    });
+
+    // ------------- Cravings -------------
+    function renderCravings() {
+      const cravings = load(storageKeys.cravings, []);
+      cravingList.innerHTML = "";
+
+      if (cravings.length === 0) {
+        cravingList.innerHTML =
+          '<div class="tiny-note">Abhi tak koi craving log nahi ki. Jab bhi urge aaye aur aap tobacco NA lo, ek entry kar do.</div>';
+        updateStatsUI();
+        return;
+      }
+
+      cravings
+        .slice()
+        .reverse()
+        .forEach((entry) => {
+          const div = document.createElement("div");
+          div.className = "log-item";
+
+          const meta = document.createElement("div");
+          meta.className = "log-meta";
+          meta.innerHTML = `
+            <span>${timeAgoString(entry.timestamp)}</span>
+            <span>${entry.mood}</span>
+          `;
+
+          const trigger = document.createElement("div");
+          trigger.className = "log-text";
+          trigger.innerHTML =
+            "<strong>Trigger:</strong> " + (entry.trigger || "—");
+
+          const note = document.createElement("div");
+          note.className = "tiny-note";
+          note.textContent = entry.note ? entry.note : "";
+
+          div.appendChild(meta);
+          div.appendChild(trigger);
+          if (entry.note) div.appendChild(note);
+          cravingList.appendChild(div);
+        });
+
+      updateStatsUI();
+    }
+
+    function logCraving(extraNote) {
+      const trigger = (triggerInput.value || "").trim();
+      const mood = moodSelect.value || "OK";
+      const note = extraNote || (noteInput.value || "").trim();
+      const cravings = load(storageKeys.cravings, []);
+
+      const newEntry = {
+        trigger,
+        mood,
+        note,
+        timestamp: Date.now()
+      };
+      cravings.push(newEntry);
+      save(storageKeys.cravings, cravings);
+
+      triggerInput.value = "";
+      noteInput.value = "";
+
+      renderCravings();
+    }
+
+    saveCravingBtn.addEventListener("click", () => {
+      logCraving();
+      alert("Craving log saved ✅");
+    });
+
+    clearCravingsBtn.addEventListener("click", () => {
+      if (!confirm("Saare craving logs delete karne hai?")) return;
+      save(storageKeys.cravings, []);
+      renderCravings();
+    });
+
+    urgeButton.addEventListener("click", () => {
+      logCraving("Quick log: urge aya, par tobacco NA liya.");
+      alert("Super! Ye urge bhi win ho gaya ✅");
+    });
+
+    // ------------- Mind: Affirmations -------------
+    const affirmations = [
+      "Aaj se main nicotine ka gulaam nahi, apne decisions ka malik hoon.",
+      "Urge temporary hai, main permanent hoon.",
+      "Mera sharir nicotine-free rehna chahta hai.",
+      "Tobacco se mujhe kuch nahi milta, main sirf khota hoon.",
+      "Main jitni baar urge ko haraunga, utni baar zindagi jeetunga.",
+      "Stress ko main healthy tareeke se handle kar sakta hoon, nicotine ki zaroorat nahi.",
+      "Main apne family, health aur future ke liye aaj clean reh raha hoon."
+    ];
+    let affirmationIndex = 0;
+
+    function showAffirmation() {
+      affirmationText.textContent = affirmations[affirmationIndex];
+    }
+
+    nextAffirmationBtn.addEventListener("click", () => {
+      affirmationIndex = (affirmationIndex + 1) % affirmations.length;
+      showAffirmation();
+    });
+
+    // ------------- Mind: Gratitude -------------
+    function renderGratitude() {
+      const items = load(storageKeys.gratitude, []);
+      gratitudeList.innerHTML = "";
+
+      if (!items.length) {
+        gratitudeList.innerHTML =
+          '<div class="tiny-note">Aaj se shuru karo — roz ek chhoti gratitude likho.</div>';
+        return;
+      }
+
+      items
+        .slice()
+        .reverse()
+        .forEach((entry) => {
+          const div = document.createElement("div");
+          div.className = "gratitude-list-item";
+
+          const dateDiv = document.createElement("div");
+          dateDiv.className = "gratitude-date";
+          dateDiv.textContent = entry.dateLabel;
+
+          const textDiv = document.createElement("div");
+          textDiv.textContent = entry.text;
+
+          div.appendChild(dateDiv);
+          div.appendChild(textDiv);
+          gratitudeList.appendChild(div);
+        });
+    }
+
+    saveGratitudeBtn.addEventListener("click", () => {
+      const text = (gratitudeInput.value || "").trim();
+      if (!text) {
+        alert("Kuch to likho jo ke liye thankful ho.");
+        return;
+      }
+      const items = load(storageKeys.gratitude, []);
+      const now = new Date();
+      const dateLabel = `${String(now.getDate()).padStart(2,"0")}-${String(
+        now.getMonth() + 1
+      ).padStart(2,"0")}-${now.getFullYear()}`;
+
+      items.push({
+        text,
+        timestamp: now.getTime(),
+        dateLabel
+      });
+
+      save(storageKeys.gratitude, items);
+      gratitudeInput.value = "";
+      renderGratitude();
+      alert("Gratitude saved ✅");
+    });
+
+    // ------------- Reset all -------------
+    resetAllBtn.addEventListener("click", () => {
+      if (!confirm("Saara data (profile, plan, cravings, gratitude) reset karna hai?")) return;
+      Object.values(storageKeys).forEach((k) => localStorage.removeItem(k));
+      location.reload();
+    });
+
+    // ------------- Init -------------
+    function initFromStorage() {
+      const storedTheme = load(storageKeys.theme, "theme-ocean");
+      themeSelect.value = storedTheme;
+      applyTheme(storedTheme);
+
+      updateProfileUI();
+
+      const quitDate = load(storageKeys.quitDate, null);
+      if (quitDate) quitDateInput.value = quitDate;
+
+      const currency = load(storageKeys.currency, "₹");
+      currencySelect.value = currency;
+
+      const dailySpend = load(storageKeys.dailySpend, 0);
+      if (dailySpend) dailySpendInput.value = dailySpend;
+
+      renderCravings();
+      updateStatsUI();
+
+      showAffirmation();
+      renderGratitude();
+    }
+
+    document.addEventListener("DOMContentLoaded", initFromStorage);
+  </script>
+</body>
+</html>
